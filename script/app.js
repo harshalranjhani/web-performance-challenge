@@ -11,14 +11,16 @@ const acceptCookies = () => {
 
 const dynamicContent = () => {
   const teasers = document.querySelectorAll('.teaser__text');
-  const marqueeBar = document.querySelector('marquee');
+  const newsTickerBar = document.querySelector('.news-ticker');
 
-  // mock content delay
-  setTimeout(() => marqueeBar.innerHTML = CONTENT_BREAKING_NEWS, 3000);
+  // Set content immediately for better performance
+  if (newsTickerBar) {
+    newsTickerBar.textContent = CONTENT_BREAKING_NEWS;
+  }
 
   // create dynamic content
   teasers.forEach((teaser, index) => {
-    teaser.innerHTML = CONTENT_ARTICLE_TEASERS[index];
+    teaser.textContent = CONTENT_ARTICLE_TEASERS[index];
   });
 };
 
@@ -59,27 +61,41 @@ const cookieLayerInit = () => {
   });
 };
 
-const layoutTrashing = (n) => {
-  for (let i = 0; i < n; i++) {
-    const container = document.querySelector('header');
-    console.log(container.clientTop);
+// Removed performance-killing functions:
+// - layoutTrashing: Caused unnecessary layout recalculations
+// - JSblocking: Blocked main thread with pointless loop
+
+const initApp = () => {
+  // Wait for DOM to be fully loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initContent);
+  } else {
+    initContent();
   }
 };
 
-const JSblocking = () => {
-  let n = 1000000;
-  while (n) { n--;}
-}
+const initContent = () => {
+  // Initialize lazy loading if available
+  if (typeof LazyLoad !== 'undefined') {
+    const lazyLoadInstance = new LazyLoad();
+    lazyLoadInstance.update();
+  }
 
-const initApp = () => {
-  const lazyLoadInstance = new LazyLoad();
-  
-  layoutTrashing(20);
   dynamicContent();
-  setTimeout(() => console.log('Hello World!'), 3000);
-  JSblocking();
-  cookieLayerInit();
-  lazyLoadInstance.update();
+
+  // Initialize Vue-based cookie layer if Vue is available
+  if (typeof Vue !== 'undefined') {
+    cookieLayerInit();
+  }
+
+  // Add event listener for form submission
+  const submitButton = document.getElementById('button');
+  if (submitButton) {
+    submitButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('Form submitted!');
+    });
+  }
 };
 
 initApp();

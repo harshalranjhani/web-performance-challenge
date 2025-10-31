@@ -4,30 +4,47 @@
   <meta charset="UTF-8">
   <title>The Rum Diary</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="styles/index.css" />
-  <link rel="preload" href="background.jpg" as="image">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="dns-prefetch" href="https://player.vimeo.com">
+
+  <!-- Critical CSS -->
+  <link rel="stylesheet" href="styles/index.css" />
+
+  <!-- Preload critical resources -->
   <link rel="preload" href="fonts/alegreya-v29-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/alegreya-v29-latin-900.woff2" as="font" type="font/woff2" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js" defer></script>
+
+  <!-- Async CSS -->
   <link rel="stylesheet" href="styles/mobile.css" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+  <noscript><link rel="stylesheet" href="styles/mobile.css"></noscript>
+
+  <!-- Swiper for carousel - load async -->
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"></noscript>
   <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js" defer></script>
+
+  <!-- Application scripts -->
   <script src="script/carousel.js" defer></script>
   <script src="script/app.js" defer></script>
 </head>
 <body>
-  <div id="cookie-vue">
-    <cookie-layer class="cookieLayer__base" v-show="displayCookieBox" v-on:accept="acceptCookies()"/>
+  <div class="cookieLayer__base" id="cookieLayer" style="display: block;">
+    <div class="cookieLayer__content">
+      <h2 class="cookieLayer__title">Do you like cookies ?</h2>
+      <p class="cookieLayer__text">This is the best chocolate chip cookies recipe ever! No funny ingredients, no chilling time, etc. Just a simple, straightforward, amazingly delicious, doughy yet still fully cooked, chocolate chip cookie that turns out perfectly every single time!</p>
+      <p class="cookieLayer__text">The first step in making these easy chocolate chip cookies to to combine the dry ingredients in a medium size bowl. Next, cream together butter and sugars. Add the eggs & vanilla and beat to combine. Add dry ingredients and stir until just combined. Then add the chocolate chips and beat until they are evenly distributed throughout the dough.</p>
+      <button class="cookieLayer__button" id="acceptCookies">I solemnly swear I will bake these cookies</button>
+      <div class="cookieLayer__disclaimer">Simplified cookie layer for better performance</div>
+    </div>
   </div>
   <header class="header__base">
     <div class="header__content">
       <a class="header__logo" href="#" aria-label="The Rum Diary Home">
-        <img class="header__image" src="./logo.png" alt="The Rum Diary Logo">
+        <img class="header__image" src="./logo.png" alt="The Rum Diary Logo" width="120" height="40" loading="eager">
       </a>
       <div class="header__navigation">
         <ul class="navigation__list">
@@ -52,8 +69,6 @@
   </header>
 
   <main class="main__base">
-    <div class="main__advertising"></div>
-    
     <div class="main__content">
       <div class="main__news main__section" role="region" aria-label="Breaking news ticker">
         <div class="news-ticker" style="line-height: 30px;background-color: darkred;color: red;" aria-live="polite"></div>
@@ -64,7 +79,7 @@
           <!-- Additional required wrapper -->
           <div class="swiper-wrapper">
             <!-- Slides -->
-            <div class="swiper-slide lazy"><img src="https://images.unsplash.com/flagged/photo-1579632993381-847f6a71a3cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=png&fit=crop&w=1170&q=80" alt="Local restaurant dining scene"></div>
+            <div class="swiper-slide"><img src="https://images.unsplash.com/flagged/photo-1579632993381-847f6a71a3cd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=webp&fit=crop&w=800&q=60" alt="Local restaurant dining scene" width="800" height="533" fetchpriority="high"></div>
             <div class="swiper-slide"></div>
             <div class="swiper-slide"></div>
           </div>
@@ -72,30 +87,30 @@
         </div>
 
         <div class="hero__teaser div2">
-          <img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" data-src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=png&fit=crop&h=400&q=80" class="hero__img lazy" alt="Waterfall in natural landscape">
+          <img src="https://images.unsplash.com/photo-1432405972618-c60b0225b8f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=webp&fit=crop&w=600&h=400&q=60" class="hero__img" alt="Waterfall in natural landscape" width="600" height="400" loading="lazy">
           <div class="hero__teaserText">Top 10 waterfalls to analyse this week</div>
         </div>
         <div class="hero__teaser div3">
-          <img src="https://media2.giphy.com/media/3oEjI6SIIHBdRxXI40/200.gif" data-src="https://images.unsplash.com/photo-1646271912756-44f11896cfea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=png&fit=crop&w=1180&q=80" class="hero__img lazy" alt="Analytics dashboard showing bounce rates">
+          <img src="https://images.unsplash.com/photo-1646271912756-44f11896cfea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=webp&fit=crop&w=600&h=400&q=60" class="hero__img" alt="Analytics dashboard showing bounce rates" width="600" height="400" loading="lazy">
           <div class="hero__teaserText">Bouncing rates increased signifincantly last week</div>
         </div>
       </div>
 
       <div class="main__teasers main__section">
         <article class="teaser__base">
-          <img class="teaser__image" src="https://images.unsplash.com/photo-1631857455684-a54a2f03665f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=png&fit=crop&w=1170&q=80" alt="First party event scene">
+          <img class="teaser__image" src="https://images.unsplash.com/photo-1631857455684-a54a2f03665f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=webp&fit=crop&w=600&q=60" alt="First party event scene" width="600" height="400" loading="lazy">
           <h2 class="teaser__title">First Party</h2>
           <div class="teaser__text"></div>
           <button class="teaser__link" aria-label="Read more about First Party">Read more</button>
         </article>
         <article class="teaser__base">
-          <img class="teaser__image" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=png&fit=crop&w=1170&q=80" alt="Second party event scene">
+          <img class="teaser__image" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=webp&fit=crop&w=600&q=60" alt="Second party event scene" width="600" height="400" loading="lazy">
           <h2 class="teaser__title">Second Party</h2>
           <div class="teaser__text"></div>
           <button class="teaser__link" aria-label="Read more about Second Party">Read more</button>
         </article>
         <article class="teaser__base">
-          <img class="teaser__image" src="https://images.unsplash.com/photo-1496024840928-4c417adf211d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=png&fit=crop&w=1170&q=80" alt="Third party event scene">
+          <img class="teaser__image" src="https://images.unsplash.com/photo-1496024840928-4c417adf211d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&fm=webp&fit=crop&w=600&q=60" alt="Third party event scene" width="600" height="400" loading="lazy">
           <h2 class="teaser__title">Third Party</h2>
           <div class="teaser__text"></div>
           <button class="teaser__link" aria-label="Read more about Third Party">Read more</button>
@@ -108,7 +123,7 @@
       </div>
       
       <div class="main__video main__section">
-        <iframe src="https://player.vimeo.com/video/44265326?h=1e8b36c00b&autoplay=0&loop=1&byline=0&muted=1&controls=1" width="640" height="360" style="border: 0;" allow="fullscreen; picture-in-picture" allowfullscreen title="Lighthouse video"></iframe>
+        <iframe src="https://player.vimeo.com/video/44265326?h=1e8b36c00b&autoplay=0&loop=1&byline=0&muted=1&controls=1" width="640" height="360" style="border: 0;" allow="fullscreen; picture-in-picture" allowfullscreen title="Lighthouse video" loading="lazy"></iframe>
         <form class="form__base" aria-label="Lighthouse feedback form">
           <div class="form__intro">Something about lighthouses, describing point of the video we are putting here to prove how awesome they really are, no.</div>
           <div class="from__control">

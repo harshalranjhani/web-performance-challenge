@@ -17,3 +17,17 @@
 .hero__carousel {
   height: 100%;
 }
+
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Desktop-specific min-height */
+@media (min-width: 769px) {
+  .hero__teaser {
+    min-height: 195px;
+  }
+}

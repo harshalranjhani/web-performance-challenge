@@ -6,16 +6,36 @@
   font-family: 'Architects Daughter', serif;
 }
 
+.teaser__image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3/2; /* Maintain consistent aspect ratio */
+  object-fit: cover;
+  display: block;
+}
+
 .teaser__title {
   font-size: 20px;
   font-weight: bold;
+  margin-top: 10px;
+  min-height: 30px; /* Reserve space */
 }
 
 .teaser__text {
   margin: 16px 0;
+  min-height: 60px; /* Reserve space for dynamic content to prevent CLS */
 }
 
 .teaser__link {
   text-align: end;
+  display: inline-block;
 }
+
+/* Desktop-specific min-height */
+@media (min-width: 769px) {
+  .teaser__base {
+    min-height: 400px;
+  }
+}
+
 

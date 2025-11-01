@@ -19,27 +19,38 @@ const initContent = () => {
     teaser.textContent = CONTENT_ARTICLE_TEASERS[index];
   });
 
-  // Handle cookie layer
-  const cookieLayer = document.getElementById('cookieLayer');
-  const acceptButton = document.getElementById('acceptCookies');
-
-  if (cookieLayer && acceptButton) {
-    // Block scrolling initially
-    document.body.classList.add('no-scroll');
-
-    acceptButton.addEventListener('click', () => {
-      cookieLayer.classList.add('cookieLayer__base--accepted');
-      cookieLayer.style.display = 'none';
-      document.body.classList.remove('no-scroll');
-    });
-  }
-
   // Handle form submission
   const submitButton = document.getElementById('button');
   if (submitButton) {
     submitButton.addEventListener('click', (e) => {
       e.preventDefault();
       alert('Form submitted!');
+    });
+  }
+  
+  // Optionally show cookie layer after page load (non-blocking)
+  // Uncomment if needed: setTimeout(showCookieLayer, 2000);
+};
+
+// Optional: Show cookie layer without blocking initial render
+const showCookieLayer = () => {
+  const cookieLayer = document.createElement('div');
+  cookieLayer.className = 'cookieLayer__base';
+  cookieLayer.id = 'cookieLayer';
+  cookieLayer.innerHTML = `
+    <div class="cookieLayer__content">
+      <h2 class="cookieLayer__title">Do you like cookies ?</h2>
+      <p class="cookieLayer__text">This site uses cookies for better performance tracking.</p>
+      <button class="cookieLayer__button" id="acceptCookies">Accept</button>
+      <div class="cookieLayer__disclaimer">Simplified cookie layer for better performance</div>
+    </div>
+  `;
+  document.body.insertBefore(cookieLayer, document.body.firstChild);
+  
+  const acceptButton = document.getElementById('acceptCookies');
+  if (acceptButton) {
+    acceptButton.addEventListener('click', () => {
+      cookieLayer.style.display = 'none';
     });
   }
 };

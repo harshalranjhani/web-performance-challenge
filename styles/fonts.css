@@ -4,17 +4,14 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local(''),
-        url('../fonts/alegreya-v29-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
-        url('../fonts/alegreya-v29-latin-regular.woff') format('woff'); /* Modern Browsers */
+  src: url('../fonts/alegreya-v29-latin-regular.woff2') format('woff2');
 }
+
 /* alegreya-900 - latin */
 @font-face {
   font-family: 'Alegreya';
   font-style: normal;
   font-weight: 900;
   font-display: swap;
-  src: local(''),
-        url('../fonts/alegreya-v29-latin-900.woff2') format('woff2'), /* Super Modern Browsers */
-        url('../fonts/alegreya-v29-latin-900.woff') format('woff'); /* Modern Browsers */
+  src: url('../fonts/alegreya-v29-latin-900.woff2') format('woff2');
 }

@@ -4,7 +4,6 @@
   border-radius: 4px;
   border: 1px solid rgb(54, 54, 54);
   font-family: 'Architects Daughter', serif;
-  min-height: 400px; /* Reserve space to prevent CLS */
 }
 
 .teaser__image {
@@ -31,4 +30,12 @@
   text-align: end;
   display: inline-block;
 }
+
+/* Desktop-specific min-height */
+@media (min-width: 769px) {
+  .teaser__base {
+    min-height: 400px;
+  }
+}
+
 

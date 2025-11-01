@@ -8,26 +8,25 @@
     display: flex;
     flex-direction: column;
     height: auto;
-    min-height: 600px; /* Reserve space on mobile */
   }
 
   .hero__carousel {
-    height: 400px;
-    min-height: 400px; /* Prevent CLS */
+    height: 300px; /* Reduced for mobile */
   }
 
   .swiper-text {
-    top: 50%;
+    top: auto;
+    bottom: 0;
   }
 
   .main__teasers {
     flex-direction: column;
-    gap: 20px; /* Consistent spacing */
+    gap: 20px;
   }
 
   .teaser__base {
     width: 100%;
-    min-height: 400px; /* Reserve space */
+    /* Remove fixed min-height on mobile to prevent CLS */
   }
 
   .cookieLayer__base {
@@ -36,22 +35,20 @@
 
   /* Optimize hero teaser display on mobile */
   .hero__teaser {
-    min-height: 200px; /* Reserve space to prevent CLS */
+    /* Remove fixed min-height on mobile */
+    height: auto;
   }
 
   .hero__img {
     object-fit: cover;
     width: 100%;
     height: auto;
-    aspect-ratio: 3/2; /* Maintain aspect ratio */
+    aspect-ratio: 3/2;
   }
 
   /* Video section mobile */
   .main__video {
     flex-direction: column;
-  }
-
-  .video-facade {
-    min-height: 250px; /* Adjust for mobile */
+    gap: 20px;
   }
 }

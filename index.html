@@ -84,11 +84,17 @@
       grid-column-gap: 20px;
       grid-row-gap: 10px;
       margin-bottom: 30px;
-      contain: layout; /* Prevent layout shifts */
     }
     .div1 { grid-area: 1 / 1 / 3 / 2; }
     .div2 { grid-area: 1 / 2 / 2 / 3; }
     .div3 { grid-area: 2 / 2 / 3 / 3; }
+    
+    /* Apply containment only on desktop to prevent mobile CLS */
+    @media (min-width: 769px) {
+      .main__hero {
+        contain: layout;
+      }
+    }
     
     /* Swiper critical styles */
     .swiper { 
@@ -118,7 +124,6 @@
     .hero__teaser {
       position: relative;
       overflow: hidden;
-      min-height: 195px; /* Reserve space to prevent CLS */
     }
     .hero__img {
       width: 100%;
@@ -135,7 +140,6 @@
       color: white;
       padding: 10px;
       font-size: 14px;
-      will-change: auto; /* Prevent unnecessary compositing */
     }
     .swiper-text {
       position: absolute;
@@ -147,7 +151,13 @@
       padding: 15px;
       font-size: 18px;
       z-index: 10;
-      will-change: auto; /* Prevent unnecessary compositing */
+    }
+    
+    /* Desktop-only min-height to prevent CLS */
+    @media (min-width: 769px) {
+      .hero__teaser {
+        min-height: 195px;
+      }
     }
     
     /* News ticker */
@@ -158,14 +168,22 @@
       padding: 5px 15px;
       margin-bottom: 20px;
       min-height: 40px; /* Reserve space to prevent CLS */
-      contain: layout; /* Prevent layout shifts from affecting other elements */
       overflow: hidden; /* Prevent content overflow */
     }
     
     /* News section */
     .main__news {
       margin-bottom: 20px;
-      min-height: 40px; /* Reserve space */
+    }
+    
+    /* Apply containment only on desktop */
+    @media (min-width: 769px) {
+      .news-ticker {
+        contain: layout;
+      }
+      .main__news {
+        min-height: 40px;
+      }
     }
     
     /* Teasers section - prevent CLS */
@@ -174,15 +192,12 @@
       justify-content: space-between;
       gap: 20px;
       margin-bottom: 30px;
-      contain: layout; /* Prevent shifts from affecting parent */
     }
     .teaser__base {
       width: 32%;
       padding: 1.35rem;
       border-radius: 4px;
       border: 1px solid rgb(54, 54, 54);
-      min-height: 400px; /* Reserve space for content */
-      contain: layout; /* Isolate layout */
     }
     .teaser__image {
       width: 100%;
@@ -200,7 +215,6 @@
     .teaser__text {
       margin: 16px 0;
       min-height: 60px; /* Reserve space for dynamic content */
-      contain: layout; /* Prevent text injection from causing shifts */
     }
     .teaser__link {
       text-align: end;
@@ -213,6 +227,20 @@
       cursor: pointer;
     }
     
+    /* Desktop-specific CLS prevention */
+    @media (min-width: 769px) {
+      .main__teasers {
+        contain: layout;
+      }
+      .teaser__base {
+        min-height: 400px;
+        contain: layout;
+      }
+      .teaser__text {
+        contain: layout;
+      }
+    }
+    
     /* Video section */
     .main__video {
       display: flex;
@@ -221,35 +249,51 @@
     }
     .video-facade {
       flex: 1;
-      min-height: 360px; /* Reserve space to prevent CLS */
     }
     .form__base {
       flex: 1;
-      min-height: 300px; /* Reserve space */
     }
     
-    /* Weather widget - reserve space */
+    /* Weather widget */
     .main__weather {
-      min-height: 250px; /* Reserve space for widget to prevent CLS */
       margin-bottom: 30px;
     }
     .weatherwidget-io {
       display: block;
-      min-height: 220px;
     }
     
-    /* Footer and disclaimer - reserve space */
+    /* Footer and disclaimer */
     .disclaimer__base {
       background: #f0f0f0;
       padding: 20px;
       text-align: center;
-      min-height: 80px;
     }
     .footer__base {
       background: #333;
       color: white;
       padding: 30px;
-      min-height: 120px;
+    }
+    
+    /* Desktop-specific min-heights to prevent CLS */
+    @media (min-width: 769px) {
+      .video-facade {
+        min-height: 360px;
+      }
+      .form__base {
+        min-height: 300px;
+      }
+      .main__weather {
+        min-height: 250px;
+      }
+      .weatherwidget-io {
+        min-height: 220px;
+      }
+      .disclaimer__base {
+        min-height: 80px;
+      }
+      .footer__base {
+        min-height: 120px;
+      }
     }
     
     /* Mobile responsive */

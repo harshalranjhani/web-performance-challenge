@@ -3,13 +3,10 @@
   flex-direction: column;
   justify-content: space-evenly;
   padding: 0 40px;
-  min-height: 300px; /* Reserve space to prevent CLS */
-  contain: layout; /* Prevent layout shifts */
 }
 
 .form__intro {
   margin-bottom: 15px;
-  min-height: 40px; /* Reserve space */
 }
 
 .from__control {
@@ -30,7 +27,7 @@
 }
 
 .form__button:hover {
-  cursor: pointer; /* Fixed from 'default' to 'pointer' */
+  cursor: pointer;
 }
 
 input[type="text"],
@@ -45,4 +42,16 @@ textarea {
 textarea {
   min-height: 100px;
   resize: vertical;
+}
+
+/* Desktop-specific optimizations */
+@media (min-width: 769px) {
+  .form__base {
+    min-height: 300px;
+    contain: layout;
+  }
+  
+  .form__intro {
+    min-height: 40px;
+  }
 }

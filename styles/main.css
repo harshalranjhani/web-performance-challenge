@@ -39,10 +39,17 @@ body {
 .div3 { grid-area: 2 / 2 / 3 / 3; }
 
 .main__teasers {
-  align-items: stretch; /* Changed from center to stretch for consistent heights */
+  align-items: stretch;
   display: flex;
   justify-content: space-between;
-  gap: 20px; /* Add gap to prevent shifts */
+  gap: 20px;
+}
+
+/* Mobile: column layout */
+@media (max-width: 750px) {
+  .main__teasers {
+    flex-direction: column;
+  }
 }
 
 .main__section {

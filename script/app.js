@@ -5,21 +5,26 @@ const CONTENT_ARTICLE_TEASERS = [
   "This is an article about third party that happened this weekend"
 ];
 
-// Initialize content immediately
+// Initialize content immediately - BEFORE any paint to prevent CLS
 const initContent = () => {
-  // Populate dynamic content
-  const teasers = document.querySelectorAll('.teaser__text');
-  const newsTickerBar = document.querySelector('.news-ticker');
+  // Use requestAnimationFrame to inject content before layout calculation
+  requestAnimationFrame(() => {
+    // Populate dynamic content
+    const teasers = document.querySelectorAll('.teaser__text');
+    const newsTickerBar = document.querySelector('.news-ticker');
 
-  if (newsTickerBar) {
-    newsTickerBar.textContent = CONTENT_BREAKING_NEWS;
-  }
+    if (newsTickerBar) {
+      newsTickerBar.textContent = CONTENT_BREAKING_NEWS;
+    }
 
-  teasers.forEach((teaser, index) => {
-    teaser.textContent = CONTENT_ARTICLE_TEASERS[index];
+    teasers.forEach((teaser, index) => {
+      if (CONTENT_ARTICLE_TEASERS[index]) {
+        teaser.textContent = CONTENT_ARTICLE_TEASERS[index];
+      }
+    });
   });
 
-  // Handle form submission
+  // Handle form submission (non-blocking)
   const submitButton = document.getElementById('button');
   if (submitButton) {
     submitButton.addEventListener('click', (e) => {
@@ -55,9 +60,16 @@ const showCookieLayer = () => {
   }
 };
 
-// Initialize when DOM is ready
+// Initialize ASAP - even before DOMContentLoaded if possible
 if (document.readyState === 'loading') {
+  // Try to initialize as early as possible
   document.addEventListener('DOMContentLoaded', initContent);
+  // Also try on readystatechange for earlier execution
+  document.addEventListener('readystatechange', () => {
+    if (document.readyState === 'interactive') {
+      initContent();
+    }
+  });
 } else {
   initContent();
 }

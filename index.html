@@ -30,6 +30,16 @@
       height: auto;
       /* Reserve space for images to prevent layout shift */
     }
+    
+    /* Explicit image sizing to prevent CLS */
+    .swiper-slide img,
+    .hero__img,
+    .teaser__image {
+      aspect-ratio: 3/2;
+      width: 100%;
+      object-fit: cover;
+    }
+    
     /* Fallback font to prevent FOIT/FOUT CLS */
     .teaser__base {
       font-family: Georgia, serif;
@@ -75,6 +85,11 @@
       padding: 1rem; 
     }
     
+    /* Reserve minimum space for main sections */
+    .main__section {
+      margin-bottom: 30px;
+    }
+    
     /* Hero section - critical for LCP */
     .main__hero {
       height: 400px;
@@ -102,22 +117,29 @@
       overflow: hidden; 
       width: 100%;
       height: 100%;
+      /* Prevent CLS during Swiper init */
+      min-height: 300px;
     }
     .swiper-wrapper { 
       display: flex; 
       position: relative;
       width: 100%;
       height: 100%;
+      /* Prevent shift before Swiper loads */
+      min-height: 300px;
     }
     .swiper-slide { 
       flex-shrink: 0; 
       width: 100%; 
       height: 100%;
+      min-height: 300px;
     }
     .swiper-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      /* Ensure consistent sizing */
+      display: block;
     }
     
     /* Hero teaser */
@@ -312,9 +334,26 @@
       }
       .teaser__base {
         width: 100%;
+        min-height: 350px; /* Reserve space on mobile */
       }
       .main__video {
         flex-direction: column;
+      }
+      /* Mobile-specific CLS prevention */
+      .hero__carousel {
+        min-height: 300px;
+      }
+      .hero__teaser {
+        min-height: 150px;
+      }
+      .video-facade {
+        min-height: 200px;
+      }
+      .form__base {
+        min-height: 280px;
+      }
+      .teaser__image {
+        min-height: 200px;
       }
     }
   </style>
@@ -329,7 +368,7 @@
 
   <!-- Preload critical resources -->
   <link rel="preload" href="fonts/alegreya-v29-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/bite.webp" as="image">
+  <link rel="preload" href="assets/bite.webp" as="image" fetchpriority="high">
 
   <!-- Swiper for carousel - load async with intersection observer -->
   <link rel="preload" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -350,7 +389,7 @@
       document.head.appendChild(script);
     };
     
-    // Load Swiper when carousel is near viewport
+    // Load Swiper when carousel is near viewport (optimized for mobile)
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -359,14 +398,18 @@
             observer.disconnect();
           }
         });
-      }, { rootMargin: '50px' });
+      }, { 
+        rootMargin: '100px', // Increased for mobile scrolling
+        threshold: 0.01 // Load earlier on mobile
+      });
       
       window.addEventListener('DOMContentLoaded', () => {
         const carousel = document.querySelector('.hero__carousel');
         if (carousel) observer.observe(carousel);
       });
     } else {
-      setTimeout(loadSwiper, 1000);
+      // Fallback: load after a short delay
+      setTimeout(loadSwiper, 500);
     }
   </script>
 </head>
@@ -403,7 +446,7 @@
   <main class="main__base">
     <div class="main__content">
       <div class="main__news main__section" role="region" aria-label="Breaking news ticker">
-        <div class="news-ticker" style="line-height: 30px;background-color: darkred;color: red;" aria-live="polite"></div>
+        <div class="news-ticker" style="line-height: 30px;background-color: darkred;color: white;min-height: 40px;" aria-live="polite"></div>
       </div>
       
       <div class="main__hero main__section">
@@ -417,21 +460,24 @@
                    width="800" 
                    height="533" 
                    fetchpriority="high"
-                   loading="eager">
+                   loading="eager"
+                   style="aspect-ratio: 3/2;">
             </div>
             <div class="swiper-slide">
               <img src="assets/waterfalls.webp" 
                    alt="Waterfall landscape" 
                    width="800" 
                    height="533" 
-                   loading="lazy">
+                   loading="lazy"
+                   style="aspect-ratio: 3/2;">
             </div>
             <div class="swiper-slide">
               <img src="assets/bounce.webp" 
                    alt="Analytics dashboard" 
                    width="800" 
                    height="533" 
-                   loading="lazy">
+                   loading="lazy"
+                   style="aspect-ratio: 3/2;">
             </div>
           </div>
           <div class="swiper-text">Local restaurants finally optimising time to first bite</div>
@@ -443,7 +489,8 @@
                alt="Waterfall in natural landscape" 
                width="600" 
                height="400" 
-               loading="lazy">
+               loading="lazy"
+               style="aspect-ratio: 3/2;">
           <div class="hero__teaserText">Top 10 waterfalls to analyse this week</div>
         </div>
         <div class="hero__teaser div3">
@@ -452,7 +499,8 @@
                alt="Analytics dashboard showing bounce rates" 
                width="600" 
                height="400" 
-               loading="lazy">
+               loading="lazy"
+               style="aspect-ratio: 3/2;">
           <div class="hero__teaserText">Bouncing rates increased signifincantly last week</div>
         </div>
       </div>
@@ -464,7 +512,8 @@
                alt="First party event scene" 
                width="600" 
                height="400" 
-               loading="lazy">
+               loading="lazy"
+               style="aspect-ratio: 3/2;">
           <h2 class="teaser__title">First Party</h2>
           <div class="teaser__text"></div>
           <button class="teaser__link" aria-label="Read more about First Party">Read more</button>
@@ -475,7 +524,8 @@
                alt="Second party event scene" 
                width="600" 
                height="400" 
-               loading="lazy">
+               loading="lazy"
+               style="aspect-ratio: 3/2;">
           <h2 class="teaser__title">Second Party</h2>
           <div class="teaser__text"></div>
           <button class="teaser__link" aria-label="Read more about Second Party">Read more</button>
@@ -486,7 +536,8 @@
                alt="Third party event scene" 
                width="600" 
                height="400" 
-               loading="lazy">
+               loading="lazy"
+               style="aspect-ratio: 3/2;">
           <h2 class="teaser__title">Third Party</h2>
           <div class="teaser__text"></div>
           <button class="teaser__link" aria-label="Read more about Third Party">Read more</button>

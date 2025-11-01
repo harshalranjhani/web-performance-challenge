@@ -11,12 +11,26 @@
   }
 
   .hero__carousel {
-    height: 300px; /* Reduced for mobile */
+    height: 300px;
+    /* Reserve explicit space for carousel on mobile */
+    min-height: 300px;
+  }
+  
+  /* Prevent carousel images from causing CLS */
+  .hero__carousel .swiper-slide {
+    min-height: 300px;
+  }
+  
+  .hero__carousel .swiper-slide img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
   }
 
   .swiper-text {
     top: auto;
     bottom: 0;
+    position: absolute;
   }
 
   .main__teasers {
@@ -26,7 +40,16 @@
 
   .teaser__base {
     width: 100%;
-    /* Remove fixed min-height on mobile to prevent CLS */
+    /* Reserve space on mobile to prevent CLS */
+    min-height: 350px;
+  }
+  
+  /* Ensure teaser images have explicit height */
+  .teaser__image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/2;
+    min-height: 200px;
   }
 
   .cookieLayer__base {
@@ -35,8 +58,8 @@
 
   /* Optimize hero teaser display on mobile */
   .hero__teaser {
-    /* Remove fixed min-height on mobile */
     height: auto;
+    min-height: 150px; /* Reserve minimum space */
   }
 
   .hero__img {
@@ -44,11 +67,33 @@
     width: 100%;
     height: auto;
     aspect-ratio: 3/2;
+    min-height: 150px;
   }
 
   /* Video section mobile */
   .main__video {
     flex-direction: column;
     gap: 20px;
+  }
+  
+  /* Reserve space for video facade on mobile */
+  .video-facade {
+    min-height: 200px;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  }
+  
+  /* Reserve space for form on mobile */
+  .form__base {
+    min-height: 280px;
+  }
+  
+  /* News ticker mobile optimization */
+  .news-ticker {
+    min-height: 40px;
+  }
+  
+  /* Weather widget mobile */
+  .main__weather {
+    min-height: 200px;
   }
 }

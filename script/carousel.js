@@ -18,5 +18,20 @@
       loadPrevNext: true,
     },
     speed: 400,
+    // Prevent CLS during initialization
+    observer: true,
+    observeParents: true,
+    watchOverflow: true,
+    // Mobile-specific optimizations
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 0
+      },
+      768: {
+        slidesPerView: 1,
+        spaceBetween: 0
+      }
+    }
   });
 })();

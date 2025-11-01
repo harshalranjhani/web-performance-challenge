@@ -2,6 +2,7 @@
   position: relative;
   height: 100%;
   overflow: hidden;
+  min-height: 195px; /* Reserve space to prevent CLS on desktop */
 }
 
 .hero__teaserText {
@@ -12,8 +13,16 @@
   font-size: 25px;
   font-weight: bold;
   color: white;
+  will-change: auto; /* Prevent unnecessary layer promotion */
 }
 
 .hero__carousel {
   height: 100%;
+}
+
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }

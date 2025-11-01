@@ -8,11 +8,12 @@
     display: flex;
     flex-direction: column;
     height: auto;
-    min-height: 600px;
+    min-height: 600px; /* Reserve space on mobile */
   }
 
   .hero__carousel {
     height: 400px;
+    min-height: 400px; /* Prevent CLS */
   }
 
   .swiper-text {
@@ -21,10 +22,12 @@
 
   .main__teasers {
     flex-direction: column;
+    gap: 20px; /* Consistent spacing */
   }
 
   .teaser__base {
     width: 100%;
+    min-height: 400px; /* Reserve space */
   }
 
   .cookieLayer__base {
@@ -33,12 +36,22 @@
 
   /* Optimize hero teaser display on mobile */
   .hero__teaser {
-    min-height: 200px;
+    min-height: 200px; /* Reserve space to prevent CLS */
   }
 
   .hero__img {
     object-fit: cover;
     width: 100%;
     height: auto;
+    aspect-ratio: 3/2; /* Maintain aspect ratio */
+  }
+
+  /* Video section mobile */
+  .main__video {
+    flex-direction: column;
+  }
+
+  .video-facade {
+    min-height: 250px; /* Adjust for mobile */
   }
 }

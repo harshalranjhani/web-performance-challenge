@@ -3,10 +3,22 @@
   flex-direction: column;
   justify-content: space-evenly;
   padding: 0 40px;
+  min-height: 300px; /* Reserve space to prevent CLS */
+  contain: layout; /* Prevent layout shifts */
+}
+
+.form__intro {
+  margin-bottom: 15px;
+  min-height: 40px; /* Reserve space */
+}
+
+.from__control {
+  margin-bottom: 15px;
 }
 
 .form__label {
   display: block;
+  margin-bottom: 5px;
 }
 
 .form__button {
@@ -14,8 +26,23 @@
   border-width: 2px;
   border-style: outset;
   border-color: gray;
+  margin-top: 10px;
 }
 
 .form__button:hover {
-  cursor: default;
+  cursor: pointer; /* Fixed from 'default' to 'pointer' */
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px; /* Prevent zoom on iOS */
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
 }

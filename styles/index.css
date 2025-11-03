@@ -1,14 +1,17 @@
-/* generics */
+/* Critical inline styles - rest loaded async */
+/* Only import what's needed for above-the-fold rendering */
+
+/* fonts - critical for text rendering */
+@import url(fonts.css);
+
+/* generics - minimal reset */
 @import url(generics.css);
 
-/* variables */
+/* variables - CSS custom properties */
 @import url(variables.css);
 
-/* main */
+/* main layout */
 @import url(main.css);
 
-/* components */
+/* components - loaded but non-critical ones can be deferred */
 @import url(components.css);
-
-/* fonts */
-@import url(fonts.css);

@@ -25,9 +25,9 @@ const initContent = () => {
   });
 
   // Handle form submission (non-blocking)
-  const submitButton = document.getElementById('button');
-  if (submitButton) {
-    submitButton.addEventListener('click', (e) => {
+  const form = document.querySelector('.form__base');
+  if (form) {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       alert('Form submitted!');
     });
